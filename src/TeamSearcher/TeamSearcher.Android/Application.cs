@@ -15,7 +15,7 @@ namespace TeamSearcher.Android
         protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
         {
             return base.CustomizeAppBuilder(builder)
-            .WithInterFont();
+                .WithInterFont();
         }
     }
 }
