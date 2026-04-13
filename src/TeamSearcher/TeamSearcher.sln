@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamSearcher.Android", "Tea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamSearcher.Desktop", "TeamSearcher.Desktop\TeamSearcher.Desktop.csproj", "{675EE7B4-2CEE-4FFA-86C9-73EAD1A87EF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamSearcher.iOS", "TeamSearcher.iOS\TeamSearcher.iOS.csproj", "{7024730B-B1B5-4FAC-BCC6-2BA2300C3618}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamSearcher.Browser", "TeamSearcher.Browser\TeamSearcher.Browser.csproj", "{F7293F01-44F6-4CF1-8D42-668C8488F081}"
 EndProject
 Global
@@ -30,12 +28,6 @@ Global
 		{675EE7B4-2CEE-4FFA-86C9-73EAD1A87EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{675EE7B4-2CEE-4FFA-86C9-73EAD1A87EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{675EE7B4-2CEE-4FFA-86C9-73EAD1A87EF5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7024730B-B1B5-4FAC-BCC6-2BA2300C3618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7024730B-B1B5-4FAC-BCC6-2BA2300C3618}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7024730B-B1B5-4FAC-BCC6-2BA2300C3618}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{7024730B-B1B5-4FAC-BCC6-2BA2300C3618}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7024730B-B1B5-4FAC-BCC6-2BA2300C3618}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7024730B-B1B5-4FAC-BCC6-2BA2300C3618}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{F7293F01-44F6-4CF1-8D42-668C8488F081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7293F01-44F6-4CF1-8D42-668C8488F081}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7293F01-44F6-4CF1-8D42-668C8488F081}.Release|Any CPU.ActiveCfg = Release|Any CPU
