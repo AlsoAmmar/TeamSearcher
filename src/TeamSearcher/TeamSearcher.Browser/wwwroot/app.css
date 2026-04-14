@@ -40,19 +40,42 @@
     }
 }
 
-.avalonia-splash h2 {
-    font-weight: 400;
-    font-size: 1.5rem;
-}
-
-.avalonia-splash a {
-    text-decoration: none;
-    font-size: 2.5rem;
-    display: block;   
-}
 
 .avalonia-splash.splash-close {
     transition: opacity 200ms, display 200ms;
     display: none;
     opacity: 0;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+
+}
+
+@media (prefers-color-scheme: light) {
+    .spinner {
+        border-top: 5px solid black;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .spinner {
+        border-top: 5px solid white;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
