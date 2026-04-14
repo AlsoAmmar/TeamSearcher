@@ -1,0 +1,110 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TeamSearcher.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TeamSearcher.Views.CreateView"
+             x:DataType="vm:CreateViewModel">
+    <Design.DataContext>
+        <vm:CreateViewModel />
+    </Design.DataContext>
+    
+    <Grid Background="Black">
+        <Border Classes="actual" Background="White"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                MaxHeight="400" MaxWidth="400"
+                CornerRadius="10"
+                Margin="20">
+            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical" Margin="20" Spacing="20">
+                    <StackPanel>
+                        <Label Content="اسم البرجيكت:"
+                               FontFamily="{StaticResource BalooBold}"
+                               FontWeight="Bold"
+                               FlowDirection="RightToLeft"/>
+                        <Panel>
+                            <TextBox FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
+                                     Foreground="Black" IsReadOnly="False"
+                                     Text="{Binding ProjectName}"
+                                     IsVisible="{Binding !IsMobile}"/>
+
+                            <Button Command="{Binding FocusProjectCommand}"
+                                    IsVisible="{Binding IsMobile}"
+                                    HorizontalAlignment="Stretch"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="1"
+                                    Padding="0,0">
+                                <TextBox Text="{Binding ProjectName}"
+                                         HorizontalAlignment="Stretch"
+                                         FontFamily="{StaticResource BalooBold}"
+                                         Foreground="Black"
+                                         Focusable="False" IsReadOnly="True"
+                                         IsHitTestVisible="False"/>
+                            </Button>
+                        </Panel>
+                    </StackPanel>
+                    
+                    <Grid ColumnDefinitions="*, Auto, *" HorizontalAlignment="Stretch">
+                        <StackPanel Grid.Column="0">
+                            <Label Content="عدد الأعضاء الحالي:"
+                                   FontFamily="{StaticResource BalooBold}"
+                                   FontWeight="Bold"
+                                   FlowDirection="RightToLeft"/>
+                            <NumericUpDown Value="{Binding CurrentCount}"
+                                           Minimum="1" Maximum="{Binding MaxCount}"
+                                           FormatString="0"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="-"
+                                   VerticalAlignment="Bottom"
+                                   FontSize="30"
+                                   Margin="10 0 10 0"/>
+                        <StackPanel Grid.Column="2">
+                            <Label Content="حجم التيم الكامل:"
+                                   FontFamily="{StaticResource BalooBold}"
+                                   FontWeight="Bold"
+                                   FlowDirection="RightToLeft"/>
+                            <NumericUpDown Value="{Binding MaxCount}"
+                                           Minimum="1" Maximum="30"
+                                           FormatString="0"/>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <StackPanel>
+                        <Grid ColumnDefinitions="*, *">
+                            <RadioButton Grid.Column="0" Content="بنات فقط"
+                                         Foreground="HotPink"
+                                         FontFamily="{StaticResource BalooBold}"
+                                         FontWeight="Bold"
+                                         FlowDirection="RightToLeft"
+                                         HorizontalAlignment="Center"
+                                         IsChecked="{Binding GirlsOnly}"/>
+                            <RadioButton Grid.Column="1" Content="أولاد فقط"
+                                         Foreground="CornflowerBlue"
+                                         FontFamily="{StaticResource BalooBold}"
+                                         FontWeight="Bold"
+                                         FlowDirection="RightToLeft"
+                                         HorizontalAlignment="Center"
+                                         IsChecked="{Binding BoysOnly}"/>
+                        </Grid>
+                    </StackPanel>
+                    
+                    <Button Height="40" Width="80"
+                            Background="Black" Foreground="White"
+                            CornerRadius="20"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            FontSize="15"
+                            Content="البحث"
+                            FontFamily="{StaticResource BalooBold}"
+                            FontWeight="Bold"
+                            FlowDirection="RightToLeft"
+                            Command="{Binding SearchCommand}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

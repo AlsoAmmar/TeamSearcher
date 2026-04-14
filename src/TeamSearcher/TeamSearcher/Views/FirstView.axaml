@@ -1,0 +1,67 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TeamSearcher.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TeamSearcher.Views.FirstView"
+             x:DataType="vm:FirstViewModel">
+    <Design.DataContext>
+        <vm:FirstViewModel />
+    </Design.DataContext>
+    
+    <Grid Background="Black">
+        <WrapPanel Orientation="Horizontal"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+            <Border Classes="actual" Height="148" Width="148" Margin="40"
+                    CornerRadius="20">
+                <Button Height="150" Width="150"
+                        Background="White" Foreground="Black"
+                        CornerRadius="20"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        FontFamily="{StaticResource Segoe}"
+                        FontSize="20"
+                        Command="{Binding GoToJoinCommand}">
+                    <Label FontFamily="{StaticResource BalooBold, ResourceKey=PhosphorBold}"
+                           FontWeight="Bold" HorizontalContentAlignment="Center">
+                        <StackPanel Orientation="Vertical" Spacing="10">
+                            <TextBlock Text="&#xE4C2;" HorizontalAlignment="Center"
+                                       FontSize="50"/>
+                            <TextBlock Text="البحث عن تيم"
+                                       FontFamily="{StaticResource BalooBold}"
+                                       HorizontalAlignment="Center"
+                                       FontSize="18"/>
+                        </StackPanel>
+                    </Label>
+                </Button>
+            </Border>
+            
+            <Border Classes="actual" Height="150" Width="150" Margin="40"
+                    CornerRadius="20">
+                <Button Height="150" Width="150"
+                        Background="White" Foreground="Black"
+                        CornerRadius="20"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        FontFamily="{StaticResource Segoe}"
+                        FontSize="20"
+                        Command="{Binding GoToCreateCommand}">
+                    <Label FontFamily="{StaticResource BalooBold, ResourceKey=PhosphorBold}"
+                           FontWeight="Bold" HorizontalContentAlignment="Center">
+                        <StackPanel Orientation="Vertical" Spacing="10">
+                            <TextBlock Text="&#xE68E;" HorizontalAlignment="Center"
+                                       FontSize="50" FontWeight="Regular"/>
+                            <TextBlock Text="البحث عن أعضاء"
+                                       FontFamily="{StaticResource BalooBold}"
+                                       HorizontalAlignment="Center"
+                                       FontSize="18"/>
+                        </StackPanel>
+                    </Label>
+                </Button>
+            </Border>
+        </WrapPanel>
+    </Grid>
+    
+</UserControl>

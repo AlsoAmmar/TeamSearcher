@@ -1,0 +1,93 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TeamSearcher.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TeamSearcher.Views.JoinView"
+             x:DataType="vm:JoinViewModel">
+    <Design.DataContext>
+        <vm:JoinViewModel />
+    </Design.DataContext>
+    
+    <Grid Background="Black">
+        <Border Classes="actual" Background="White"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                MaxHeight="400" MaxWidth="400"
+                CornerRadius="10"
+                Margin="20">
+            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Margin="20 20 20 10">
+                        <Label Content="الاسم:" Foreground="Black"
+                               FlowDirection="RightToLeft"
+                               FontFamily="{StaticResource BalooBold}"
+                               FontWeight="Bold"/>
+                        <Panel>
+                            <TextBox FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
+                                     Foreground="Black" IsReadOnly="False"
+                                     Text="{Binding Name}"
+                                     IsVisible="{Binding !IsMobile}"/>
+
+                            <Button Command="{Binding FocusNameCommand}"
+                                    IsVisible="{Binding IsMobile}"
+                                    HorizontalAlignment="Stretch"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="1"
+                                    Padding="0,0">
+                                <TextBox Text="{Binding Name}"
+                                         HorizontalAlignment="Stretch"
+                                         FontFamily="{StaticResource BalooBold}"
+                                         Foreground="Black"
+                                         Focusable="False" IsReadOnly="True"
+                                         IsHitTestVisible="False"/>
+                            </Button>
+                        </Panel>
+                    </StackPanel>
+                
+                    <StackPanel Margin="20 10 20 20">
+                        <Label Content="رقم الواتساب للتواصل:" Foreground="Black"
+                               FlowDirection="RightToLeft"
+                               FontFamily="{StaticResource BalooBold}"
+                               FontWeight="Bold"/>
+                        <Panel>
+                            <TextBox FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
+                                     Foreground="Black" IsReadOnly="False"
+                                     Text="{Binding Number}"
+                                     IsVisible="{Binding !IsMobile}"/>
+
+                            <Button Command="{Binding FocusNumberCommand}"
+                                    IsVisible="{Binding IsMobile}"
+                                    HorizontalAlignment="Stretch"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="1"
+                                    Padding="0,0">
+                                <TextBox Text="{Binding Number}"
+                                         HorizontalAlignment="Stretch"
+                                         FontFamily="{StaticResource BalooBold}"
+                                         Foreground="Black"
+                                         Focusable="False" IsReadOnly="True"
+                                         IsHitTestVisible="False"/>
+                            </Button>
+                        </Panel>
+                    </StackPanel>
+                
+                    <Button Height="40" Width="80"
+                            Background="Black" Foreground="White"
+                            CornerRadius="20" Margin="20"
+                            HorizontalAlignment="Right"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            FontFamily="{StaticResource BalooBold}"
+                            FontWeight="Bold"
+                            FontSize="15"
+                            Content="البحث"
+                            Command="{Binding SearchCommand}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

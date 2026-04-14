@@ -9,6 +9,8 @@
   <Design.DataContext>
     <vm:MainViewModel />
   </Design.DataContext>
-
-  
+    
+    <Grid Background="Black">
+        <ContentControl Content="{Binding CurrentPage}"/>
+    </Grid>
 </UserControl>

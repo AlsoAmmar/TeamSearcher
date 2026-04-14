@@ -14,21 +14,21 @@
 /* Light theme styles */
 @media (prefers-color-scheme: light) {
     .avalonia-splash {
-        background: white;
+        background: black;
     }
 
     .avalonia-splash h2 {
-        color: #1b2a4e;
+        color: white;
     }
 
     .avalonia-splash a {
-        color: #0D6EFD;
+        color: white;
     }
 }
 
 @media (prefers-color-scheme: dark) {
     .avalonia-splash {
-        background: #1b2a4e;
+        background: black;
     }
 
     .avalonia-splash h2 {
