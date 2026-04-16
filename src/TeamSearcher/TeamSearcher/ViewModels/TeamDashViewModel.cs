@@ -5,9 +5,10 @@ namespace TeamSearcher.ViewModels;
 public partial class TeamDashViewModel : ViewModelBase
 {
     [ObservableProperty] private string _projectName;
-    [ObservableProperty] private int _currentCount;
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(MergedCount))]
+    private int _currentCount;
     [ObservableProperty] private int _maxCount;
-    [ObservableProperty] private string _mergedCount;
+    public string MergedCount => $"{CurrentCount}/{MaxCount}";
 
     public TeamDashViewModel() { }
 
@@ -16,6 +17,5 @@ public partial class TeamDashViewModel : ViewModelBase
         ProjectName = name;
         CurrentCount = currentCount;
         MaxCount = maxCount;
-        MergedCount = $"{CurrentCount}/{MaxCount}";
     }
 }
