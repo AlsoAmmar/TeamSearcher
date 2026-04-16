@@ -11,7 +11,7 @@
     </Design.DataContext>
     
     <Grid Background="Black" PointerPressed="BorderPressed">
-        <StackPanel>
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Border Height="50" Width="50" Background="Transparent"/>
             <Border Classes="actual" Background="White"
                     HorizontalAlignment="Stretch"

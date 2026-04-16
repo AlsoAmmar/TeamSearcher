@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:TeamSearcher.ViewModels"
+             xmlns:model="using:TeamSearcher.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TeamSearcher.Views.TeamDashView"
              x:DataType="vm:TeamDashViewModel">
@@ -29,25 +30,44 @@
         <Rectangle Grid.Row="1" Fill="White" Height="1" Margin="70 0 70 0"/>
         
         <ScrollViewer Grid.Row="2">
-            <ItemsControl>
+            <ItemsControl ItemsSource="{Binding PersonList}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
+                        <WrapPanel Orientation="Horizontal"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        
+                    <DataTemplate DataType="model:Person">
+                        <Border Classes="actual"
+                                Background="White"
+                                MinWidth="250"
+                                MaxWidth="250"
+                                Margin="20" CornerRadius="20">
+                            <Grid Margin="15">
+                                <TextBlock Text="{Binding Name}"
+                                           FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Center"/>
+                                
+                                <Grid ColumnDefinitions="*, *">
+                                    <Button Grid.Column="1" Height="32"
+                                            Background="Black" Foreground="White"
+                                            CornerRadius="20"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            Content="قبول"
+                                            FontFamily="{StaticResource BalooBold}"
+                                            FontWeight="Bold"
+                                            FlowDirection="RightToLeft"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        
-        <TextBlock Grid.Row="2" Text="لا يوجد أحد حالياً وانت(م) مطبوخ(ون)"
-                   Foreground="White"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontFamily="{StaticResource BalooBold}"/>
     </Grid>
 </UserControl>
