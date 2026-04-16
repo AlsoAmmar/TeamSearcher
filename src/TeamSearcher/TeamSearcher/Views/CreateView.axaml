@@ -11,122 +11,126 @@
     </Design.DataContext>
     
     <Grid Background="Black" PointerPressed="BorderPressed">
-        <Control Name="FocusSinker" Focusable="True" Width="0" Height="0"/>
-        <Border Classes="actual" Background="White"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                MaxHeight="400" MaxWidth="400"
-                CornerRadius="10"
-                Margin="20"
-                PointerPressed="BorderPressed">
-            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <StackPanel Orientation="Vertical" Margin="20" Spacing="20">
-                    <StackPanel>
-                        <Label Content="اسم البروجيكت:"
-                               FontFamily="{StaticResource BalooBold}"
-                               FontWeight="Bold"
-                               FlowDirection="RightToLeft"/>
-                        <Panel>
-                            <TextBox FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
-                                     Foreground="Black" IsReadOnly="False"
-                                     Text="{Binding ProjectName}"
-                                     IsVisible="{Binding !IsMobile}"/>
+        <StackPanel>
+            <Border Height="50" Width="50" Background="Transparent"/>
+            <Border Classes="actual" Background="White"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    MaxHeight="400" MaxWidth="400"
+                    CornerRadius="10"
+                    Margin="20 20 20 10"
+                    PointerPressed="BorderPressed">
+                <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Margin="20" Spacing="20">
+                        <StackPanel>
+                            <Label Content="اسم البروجيكت:"
+                                   FontFamily="{StaticResource BalooBold}"
+                                   FontWeight="Bold"
+                                   FlowDirection="RightToLeft"/>
+                            <Panel>
+                                <TextBox FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
+                                         Foreground="Black" IsReadOnly="False"
+                                         Text="{Binding ProjectName}"
+                                         IsVisible="{Binding !IsMobile}"/>
 
-                            <Button Command="{Binding FocusProjectCommand}"
-                                    IsVisible="{Binding IsMobile}"
-                                    HorizontalAlignment="Stretch"
-                                    Background="Transparent"
-                                    BorderBrush="Transparent"
-                                    BorderThickness="1"
-                                    Padding="0,0">
-                                <TextBox Text="{Binding ProjectName}"
-                                         HorizontalAlignment="Stretch"
-                                         FontFamily="{StaticResource BalooBold}"
-                                         Foreground="Black"
-                                         Focusable="False" IsReadOnly="True"
-                                         IsHitTestVisible="False"/>
-                            </Button>
-                        </Panel>
-                    </StackPanel>
-                    
-                    <Grid ColumnDefinitions="*, Auto, *" HorizontalAlignment="Stretch">
-                        <StackPanel Grid.Column="0">
-                            <Label Content="عدد الأعضاء الحالي:"
-                                   FontFamily="{StaticResource BalooBold}"
-                                   FontWeight="Bold"
-                                   FlowDirection="RightToLeft"/>
-                            <NumericUpDown Value="{Binding CurrentCount}"
-                                           Minimum="1" Maximum="{Binding MaxCount}"
-                                           FormatString="0"/>
+                                <Button Command="{Binding FocusProjectCommand}"
+                                        IsVisible="{Binding IsMobile}"
+                                        HorizontalAlignment="Stretch"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="1"
+                                        Padding="0,0">
+                                    <TextBox Text="{Binding ProjectName}"
+                                             HorizontalAlignment="Stretch"
+                                             FontFamily="{StaticResource BalooBold}"
+                                             Foreground="Black"
+                                             Focusable="False" IsReadOnly="True"
+                                             IsHitTestVisible="False"/>
+                                </Button>
+                            </Panel>
                         </StackPanel>
-                        <TextBlock Grid.Column="1" Text="-"
-                                   VerticalAlignment="Bottom"
-                                   FontSize="30"
-                                   Margin="10 0 10 0"/>
-                        <StackPanel Grid.Column="2">
-                            <Label Content="حجم التيم الكامل:"
-                                   FontFamily="{StaticResource BalooBold}"
-                                   FontWeight="Bold"
-                                   FlowDirection="RightToLeft"/>
-                            <NumericUpDown Value="{Binding MaxCount}"
-                                           Minimum="1" Maximum="30"
-                                           FormatString="0"/>
+                        
+                        <Grid ColumnDefinitions="*, Auto, *" HorizontalAlignment="Stretch">
+                            <StackPanel Grid.Column="0">
+                                <Label Content="عدد الأعضاء الحالي:"
+                                       FontFamily="{StaticResource BalooBold}"
+                                       FontWeight="Bold"
+                                       FlowDirection="RightToLeft"/>
+                                <NumericUpDown Value="{Binding CurrentCount}"
+                                               Minimum="1" Maximum="{Binding MaxCount}"
+                                               FormatString="0"/>
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" Text="-"
+                                       VerticalAlignment="Bottom"
+                                       FontSize="30"
+                                       Margin="10 0 10 0"/>
+                            <StackPanel Grid.Column="2">
+                                <Label Content="حجم التيم الكامل:"
+                                       FontFamily="{StaticResource BalooBold}"
+                                       FontWeight="Bold"
+                                       FlowDirection="RightToLeft"/>
+                                <NumericUpDown Value="{Binding MaxCount}"
+                                               Minimum="1" Maximum="30"
+                                               FormatString="0"/>
+                            </StackPanel>
+                        </Grid>
+                        
+                        <StackPanel>
+                            <Grid ColumnDefinitions="Auto, *, *">
+                                <Button Grid.Column="0" Foreground="CornflowerBlue"
+                                        Background="Transparent"
+                                        FontFamily="{StaticResource BalooBold}"
+                                        Content="حذف"
+                                        Command="{Binding RemoveTagCommand}"/>
+                                <RadioButton Grid.Column="1" Content="بنات فقط"
+                                             Foreground="HotPink"
+                                             FontFamily="{StaticResource BalooBold}"
+                                             FontWeight="Bold"
+                                             FlowDirection="RightToLeft"
+                                             HorizontalAlignment="Center"
+                                             IsChecked="{Binding GirlsOnly}"/>
+                                <RadioButton Grid.Column="2" Content="أولاد فقط"
+                                             Foreground="CornflowerBlue"
+                                             FontFamily="{StaticResource BalooBold}"
+                                             FontWeight="Bold"
+                                             FlowDirection="RightToLeft"
+                                             HorizontalAlignment="Center"
+                                             IsChecked="{Binding BoysOnly}"/>
+                            </Grid>
                         </StackPanel>
-                    </Grid>
-                    
-                    <StackPanel>
-                        <Grid ColumnDefinitions="Auto, *, *">
-                            <Button Grid.Column="0" Foreground="CornflowerBlue"
-                                    Background="Transparent"
+                        
+                        <Grid>
+                            <Button Height="40" Width="80"
+                                    Background="Black" Foreground="White"
+                                    CornerRadius="20"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    FontSize="15"
+                                    Content="البحث"
                                     FontFamily="{StaticResource BalooBold}"
-                                    Content="حذف"
-                                    Command="{Binding RemoveTagCommand}"/>
-                            <RadioButton Grid.Column="1" Content="بنات فقط"
-                                         Foreground="HotPink"
-                                         FontFamily="{StaticResource BalooBold}"
-                                         FontWeight="Bold"
-                                         FlowDirection="RightToLeft"
-                                         HorizontalAlignment="Center"
-                                         IsChecked="{Binding GirlsOnly}"/>
-                            <RadioButton Grid.Column="2" Content="أولاد فقط"
-                                         Foreground="CornflowerBlue"
-                                         FontFamily="{StaticResource BalooBold}"
-                                         FontWeight="Bold"
-                                         FlowDirection="RightToLeft"
-                                         HorizontalAlignment="Center"
-                                         IsChecked="{Binding BoysOnly}"/>
+                                    FontWeight="Bold"
+                                    FlowDirection="RightToLeft"
+                                    Command="{Binding SearchCommand}"/>
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Foreground="Red" FontFamily="{StaticResource BalooBold}"
+                                       Text="{Binding ErrorMessage}"/>
                         </Grid>
                     </StackPanel>
-                    
-                    <Grid>
-                        <Button Height="40" Width="80"
-                                Background="Black" Foreground="White"
-                                CornerRadius="20"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                HorizontalContentAlignment="Center"
-                                FontSize="15"
-                                Content="البحث"
-                                FontFamily="{StaticResource BalooBold}"
-                                FontWeight="Bold"
-                                FlowDirection="RightToLeft"
-                                Command="{Binding SearchCommand}"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
-                                   Foreground="Red" FontFamily="{StaticResource BalooBold}"
-                                   Text="{Binding ErrorMessage}"/>
-                    </Grid>
-                </StackPanel>
-            </ScrollViewer>
-        </Border>
-        <Button Classes="back"
-                HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                Background="White" Foreground="Black"
-                Margin="10" CornerRadius="50"
-                Height="50" Width="50"
-                FontFamily="{StaticResource PhosphorBold}" FontWeight="Bold"
-                FontSize="25"
-                Content="&#xE058;"
-                Command="{Binding GoBackCommand}"/>
+                </ScrollViewer>
+            </Border>
+            <Border MaxWidth="400">
+                <Button Classes="back"
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Background="White" Foreground="Black" CornerRadius="50"
+                        Height="50" Width="50"
+                        FontFamily="{StaticResource PhosphorBold}" FontWeight="Bold"
+                        FontSize="25"
+                        Content="&#xE058;"
+                        Command="{Binding GoBackCommand}"/>
+            </Border>
+        </StackPanel>
+        <Control Name="FocusSinker" Focusable="True" Width="0" Height="0"/>
     </Grid>
 </UserControl>
