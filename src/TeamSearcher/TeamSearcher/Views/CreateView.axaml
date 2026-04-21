@@ -58,7 +58,7 @@
                                        FlowDirection="RightToLeft"/>
                                 <NumericUpDown Value="{Binding CurrentCount}"
                                                Minimum="1" Maximum="{Binding MaxCount}"
-                                               FormatString="0"/>
+                                               FormatString="0" FontFamily="{StaticResource BalooBold}"/>
                             </StackPanel>
                             <TextBlock Grid.Column="1" Text="-"
                                        VerticalAlignment="Bottom"
@@ -71,7 +71,7 @@
                                        FlowDirection="RightToLeft"/>
                                 <NumericUpDown Value="{Binding MaxCount}"
                                                Minimum="1" Maximum="30"
-                                               FormatString="0"/>
+                                               FormatString="0" FontFamily="{StaticResource BalooBold}"/>
                             </StackPanel>
                         </Grid>
                         

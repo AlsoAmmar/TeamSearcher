@@ -13,8 +13,9 @@
     
     <Grid Background="Black" RowDefinitions="Auto, Auto, *">
         <StackPanel Grid.Row="0" Margin="20" Spacing="10">
-            <TextBlock Text="{Binding ProjectName}" Foreground="White"
-                       FontFamily="{StaticResource Segoe}"
+            <TextBlock Text="{Binding ProjectName}"
+                       FontFamily="{StaticResource BalooBold, ResourceKey=Segoe}"
+                       FontWeight="Bold" Foreground="White"
                        FontSize="25" TextWrapping="Wrap"/>
             <Label FontSize="20" Foreground="White"
                    FontFamily="{StaticResource PhosphorBold, ResourceKey=Segoe}">

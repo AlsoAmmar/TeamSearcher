@@ -23,12 +23,12 @@ public partial class TeamDashViewModel : ViewModelBase
         PersonList.Add(new Person("مصطفى"));
     }
 
-    public TeamDashViewModel(string name, int currentCount, int maxCount)
+    public TeamDashViewModel(string name, int? currentCount, int? maxCount)
     {
         PersonList = new ObservableCollection<Person>();
         
         ProjectName = name;
-        CurrentCount = currentCount;
-        MaxCount = maxCount;
+        CurrentCount = (int)currentCount!;
+        MaxCount = (int)maxCount!;
     }
 }

@@ -11,8 +11,8 @@ public partial class CreateViewModel : ViewModelBase
 {
     [ObservableProperty] [Required(ErrorMessage = "يجب إضافة اسم البروجيكت الذي يعمل عليه التيم")] [NotifyDataErrorInfo]
     private string _projectName;
-    [ObservableProperty] private int _currentCount = 1;
-    [ObservableProperty] private int _maxCount = 5;
+    [ObservableProperty] [Required(ErrorMessage = "لا يمكن ترك الخانة فارغة")] private int? _currentCount = 1;
+    [ObservableProperty] [Required(ErrorMessage = "لا يمكن ترك الخانة فارغة")] private int? _maxCount = 5;
     [ObservableProperty] private bool _isMobile;
     [ObservableProperty] private bool _boysOnly;
     [ObservableProperty] private bool _girlsOnly;
@@ -52,7 +52,7 @@ public partial class CreateViewModel : ViewModelBase
         }else if (MaxCount < CurrentCount)
         {
             ErrorMessage = "رقم الأعضاء الحالي يتعدي العدد الاقصى";
-        }else if (MaxCount == CurrentCount)
+        }else if (MaxCount == CurrentCount && MaxCount != null && CurrentCount != null)
         {
             ErrorMessage = "التيم مكتمل بالفعل";
         }
