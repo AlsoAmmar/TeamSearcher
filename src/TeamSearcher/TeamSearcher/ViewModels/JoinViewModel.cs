@@ -1,5 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -16,8 +22,12 @@ public partial class JoinViewModel : ViewModelBase
     [ObservableProperty]
     private bool _isMobile;
 
+    private HttpClient client;
+
     public JoinViewModel()
     {
+        client = new HttpClient();
+        
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Create("BROWSER")))
         {
             IsMobile = MobileInputHelper.IsMobile();
@@ -50,12 +60,28 @@ public partial class JoinViewModel : ViewModelBase
     private void FocusNumber() => MobileInputHelper.Focus("Number", "number");
 
     [RelayCommand]
-    private void Search()
+    private async Task Search()
     {
         ValidateAllProperties();
         if (!HasErrors)
         {
-            WeakReferenceMessenger.Default.Send(new NavigationMessage(new TeamListViewModel(Name, Number)));
+            Person person = new Person{ Name = Name, Number = Number };
+            
+            var content = new StringContent(JsonSerializer.Serialize(person, AppJsonContext.Default.Person), Encoding.UTF8, "application/json");
+            
+            Console.WriteLine(await content.ReadAsStringAsync());
+            
+            HttpResponseMessage response =  await client.PostAsync("http://localhost:5213/api/v1/person/", content);
+            
+            if (response.IsSuccessStatusCode)
+            {
+                string idString = await response.Content.ReadAsStringAsync();
+                
+                if (int.TryParse(idString, out int id))
+                {
+                    WeakReferenceMessenger.Default.Send(new NavigationMessage(new TeamListViewModel(id)));
+                }
+            }
         }
     }
 

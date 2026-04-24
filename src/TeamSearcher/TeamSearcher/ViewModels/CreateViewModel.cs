@@ -1,5 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -17,6 +21,7 @@ public partial class CreateViewModel : ViewModelBase
     [ObservableProperty] private bool _boysOnly;
     [ObservableProperty] private bool _girlsOnly;
     [ObservableProperty] private string _errorMessage;
+    private HttpClient client;
 
     public CreateViewModel()
     {
@@ -34,25 +39,55 @@ public partial class CreateViewModel : ViewModelBase
                     ProjectName = ProjectName[..^1];
             };
         }
+
+        client = new HttpClient();
     }
 
     [RelayCommand]
     private void FocusProject() => MobileInputHelper.Focus("Project");
 
     [RelayCommand]
-    private void Search()
+    private async Task Search()
     {
         ErrorMessage = "";
         ValidateAllProperties();
         
         if (!HasErrors)
         {
-            WeakReferenceMessenger.Default.Send(
-                new NavigationMessage(new TeamDashViewModel(ProjectName, CurrentCount, MaxCount)));
-        }else if (MaxCount < CurrentCount)
+            Team team = new Team
+            {
+                Name = ProjectName, 
+                CurrentCount = (int)CurrentCount!, 
+                MaxCount = (int)MaxCount!,
+                Tag = (BoysOnly, GirlsOnly) switch
+                {
+                    (true, _) => Tag.BoysOnly,
+                    (_, true) => Tag.GirlsOnly,
+                    _ => Tag.None
+                }
+            };
+
+            var content = new StringContent(JsonSerializer.Serialize(team, AppJsonContext.Default.Team), Encoding.UTF8, "application/json");
+            
+            Console.WriteLine(await content.ReadAsStringAsync());
+
+            HttpResponseMessage response = await client.PostAsync("http://localhost:5213/api/v1/team/", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string idString = await response.Content.ReadAsStringAsync();
+
+                if (int.TryParse(idString, out int id))
+                {
+                    WeakReferenceMessenger.Default.Send(new NavigationMessage(new TeamDashViewModel(id)));
+                }
+            }
+        }
+        else if (MaxCount < CurrentCount)
         {
             ErrorMessage = "رقم الأعضاء الحالي يتعدي العدد الاقصى";
-        }else if (MaxCount == CurrentCount && MaxCount != null && CurrentCount != null)
+        }
+        else if (MaxCount == CurrentCount && MaxCount != null && CurrentCount != null)
         {
             ErrorMessage = "التيم مكتمل بالفعل";
         }

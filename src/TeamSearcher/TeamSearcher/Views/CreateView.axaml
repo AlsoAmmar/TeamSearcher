@@ -70,7 +70,7 @@
                                        FontWeight="Bold"
                                        FlowDirection="RightToLeft"/>
                                 <NumericUpDown Value="{Binding MaxCount}"
-                                               Minimum="1" Maximum="30"
+                                               Minimum="{Binding CurrentCount}" Maximum="30"
                                                FormatString="0" FontFamily="{StaticResource BalooBold}"/>
                             </StackPanel>
                         </Grid>

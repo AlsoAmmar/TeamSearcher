@@ -46,7 +46,7 @@
                                 MaxWidth="250"
                                 Margin="20" CornerRadius="20">
                             <StackPanel Margin="15" Spacing="10">
-                                <TextBlock Text="{Binding TeamName}"
+                                <TextBlock Text="{Binding Name}"
                                            FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
                                            FontWeight="Bold"/>
                                 
@@ -70,7 +70,8 @@
                                             Content="طلب إنضمام"
                                             FontFamily="{StaticResource BalooBold}"
                                             FontWeight="Bold"
-                                            FlowDirection="RightToLeft"/>
+                                            FlowDirection="RightToLeft"
+                                            Click="RequestJoining"/>
                                 </Grid>
                             </StackPanel>
                         </Border>
