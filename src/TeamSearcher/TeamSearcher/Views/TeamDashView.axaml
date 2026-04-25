@@ -62,7 +62,8 @@
                                             Content="قبول"
                                             FontFamily="{StaticResource BalooBold}"
                                             FontWeight="Bold"
-                                            FlowDirection="RightToLeft"/>
+                                            FlowDirection="RightToLeft"
+                                            Click="AcceptRequest"/>
                                 </Grid>
                             </Grid>
                         </Border>

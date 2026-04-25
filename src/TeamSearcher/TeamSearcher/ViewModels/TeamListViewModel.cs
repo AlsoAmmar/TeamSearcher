@@ -6,6 +6,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
 using TeamSearcher.Models;
 
 namespace TeamSearcher.ViewModels;
@@ -17,11 +19,23 @@ public partial class TeamListViewModel : ViewModelBase
     [ObservableProperty] private ObservableCollection<Team> _teamList;
     private int PersonId { get; set; }
     HttpClient client;
+    private HubConnection connection;
 
     public TeamListViewModel(int id)
     {
         client = new HttpClient();
         TeamList = new ObservableCollection<Team>();
+        
+        connection = new HubConnectionBuilder()
+            .WithUrl($"http://localhost:5213/personHub?userId={id}")
+            .WithAutomaticReconnect()
+            .AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerOptions = AppJsonContext.Default.Options;
+            })
+            .Build();
+
+        connection.On("GetTeams", async () => await GetTeams(id));
 
         _ = InitializeAsync(id);
     }
@@ -42,34 +56,38 @@ public partial class TeamListViewModel : ViewModelBase
 
     private async Task InitializeAsync(int id)
     {
-        try
+        var response = await client.GetAsync($"http://localhost:5213/api/v1/person/{id}");
+
+        Console.WriteLine(await response.Content.ReadAsStringAsync());
+
+        if (response.IsSuccessStatusCode)
         {
-            var response = await client.GetAsync($"http://localhost:5213/api/v1/person/{id}");
+            Person? person = JsonSerializer.Deserialize(await response.Content.ReadAsStringAsync(),
+                AppJsonContext.Default.Person);
 
-            Console.WriteLine(await response.Content.ReadAsStringAsync());
-
-            if (response.IsSuccessStatusCode)
-            {
-                Person? person = JsonSerializer.Deserialize(await response.Content.ReadAsStringAsync(),
-                    AppJsonContext.Default.Person);
-
-                PersonName = person!.Name;
-                Number = person.Number;
-                PersonId = (int)person.Id!;
-            }
-            
-            TeamList = await client.GetFromJsonAsync("http://localhost:5213/api/v1/team", AppJsonContext.Default.ObservableCollectionTeam);
+            PersonName = person!.Name;
+            Number = person.Number;
+            PersonId = (int)person.Id!;
         }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+
+        await GetTeams(id);
+
+        await connection.StartAsync();
+    }
+
+    private async Task GetTeams(int id)
+    {
+        TeamList = await client.GetFromJsonAsync($"http://localhost:5213/api/v1/team?personId={id}", AppJsonContext.Default.ObservableCollectionTeam);
     }
 
     [RelayCommand]
     private async Task RequestJoin(Team team)
     {
         var response = await client.PostAsync($"http://localhost:5213/api/v1/team/request/{team.Id}?personId={PersonId}", null);
+
+        if (response.IsSuccessStatusCode)
+        {
+            
+        }
     }
 }

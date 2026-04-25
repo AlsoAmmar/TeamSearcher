@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -14,11 +15,11 @@ public partial class TeamListView : UserControl
         InitializeComponent();
     }
 
-    private void RequestJoining(object? sender, RoutedEventArgs e)
+    private async void RequestJoining(object? sender, RoutedEventArgs e)
     {
         var button = sender as Button;
         var team = button!.DataContext as Team;
         
-        ((TeamListViewModel)DataContext!).RequestJoinCommand.Execute(team);
+        await ((TeamListViewModel)DataContext!).RequestJoinCommand.ExecuteAsync(team);
     }
 }
