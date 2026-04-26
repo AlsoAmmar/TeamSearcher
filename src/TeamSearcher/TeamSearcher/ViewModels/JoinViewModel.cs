@@ -23,6 +23,7 @@ public partial class JoinViewModel : ViewModelBase
     private bool _isMobile;
 
     private HttpClient client;
+    private string BaseURL = "http://localhost:5213";
 
     public JoinViewModel()
     {
@@ -66,21 +67,29 @@ public partial class JoinViewModel : ViewModelBase
         if (!HasErrors)
         {
             Person person = new Person{ Name = Name, Number = Number };
-            
-            var content = new StringContent(JsonSerializer.Serialize(person, AppJsonContext.Default.Person), Encoding.UTF8, "application/json");
-            
-            Console.WriteLine(await content.ReadAsStringAsync());
-            
-            HttpResponseMessage response =  await client.PostAsync("http://localhost:5213/api/v1/person/", content);
-            
-            if (response.IsSuccessStatusCode)
+
+            try
             {
-                string idString = await response.Content.ReadAsStringAsync();
-                
-                if (int.TryParse(idString, out int id))
+                var content = new StringContent(JsonSerializer.Serialize(person, AppJsonContext.Default.Person), Encoding.UTF8, "application/json");
+            
+                Console.WriteLine(await content.ReadAsStringAsync());
+            
+                HttpResponseMessage response =  await client.PostAsync($"{BaseURL}/api/v1/person/", content);
+            
+                if (response.IsSuccessStatusCode)
                 {
-                    WeakReferenceMessenger.Default.Send(new NavigationMessage(new TeamListViewModel(id)));
+                    string idString = await response.Content.ReadAsStringAsync();
+                
+                    if (int.TryParse(idString, out int id))
+                    {
+                        WeakReferenceMessenger.Default.Send(new NavigationMessage(new TeamListViewModel(id)));
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }

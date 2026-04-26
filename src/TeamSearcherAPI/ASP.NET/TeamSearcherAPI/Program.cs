@@ -24,7 +24,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("policy", policy =>
     {
-       policy.WithOrigins("https://localhost:7169")
+       policy.WithOrigins("https://localhost:7169", "https://team-searcher.vercel.app")
              .AllowAnyHeader()
              .AllowAnyMethod()
              .AllowCredentials();

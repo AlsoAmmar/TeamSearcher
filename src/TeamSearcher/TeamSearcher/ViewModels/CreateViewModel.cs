@@ -21,6 +21,7 @@ public partial class CreateViewModel : ViewModelBase
     [ObservableProperty] private bool _boysOnly;
     [ObservableProperty] private bool _girlsOnly;
     [ObservableProperty] private string _errorMessage;
+    private string BaseURL = "http://localhost:5213";
     private HttpClient client;
 
     public CreateViewModel()
@@ -66,21 +67,29 @@ public partial class CreateViewModel : ViewModelBase
                     _ => Tag.None
                 }
             };
-
-            var content = new StringContent(JsonSerializer.Serialize(team, AppJsonContext.Default.Team), Encoding.UTF8, "application/json");
             
-            Console.WriteLine(await content.ReadAsStringAsync());
-
-            HttpResponseMessage response = await client.PostAsync("http://localhost:5213/api/v1/team/", content);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                string idString = await response.Content.ReadAsStringAsync();
+                var content = new StringContent(JsonSerializer.Serialize(team, AppJsonContext.Default.Team), Encoding.UTF8, "application/json");
+            
+                Console.WriteLine(await content.ReadAsStringAsync());
 
-                if (int.TryParse(idString, out int id))
+                HttpResponseMessage response = await client.PostAsync($"{BaseURL}/api/v1/team/", content);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    WeakReferenceMessenger.Default.Send(new NavigationMessage(new TeamDashViewModel(id)));
+                    string idString = await response.Content.ReadAsStringAsync();
+
+                    if (int.TryParse(idString, out int id))
+                    {
+                        WeakReferenceMessenger.Default.Send(new NavigationMessage(new TeamDashViewModel(id)));
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
         else if (MaxCount < CurrentCount)

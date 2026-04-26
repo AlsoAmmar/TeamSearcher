@@ -24,6 +24,7 @@ public partial class TeamDashViewModel : ViewModelBase
     private int TeamId { get; set; }
     private HttpClient client;
     private HubConnection connection;
+    private string BaseURL = "http://localhost:5213";
 
     public TeamDashViewModel()
     {
@@ -41,7 +42,7 @@ public partial class TeamDashViewModel : ViewModelBase
         PersonList = new ObservableCollection<Person>();
 
         connection = new HubConnectionBuilder()
-            .WithUrl($"http://localhost:5213/teamHub?teamId={id}")
+            .WithUrl($"{BaseURL}/teamHub?teamId={id}")
             .WithAutomaticReconnect()
             .AddJsonProtocol(options =>
             {
@@ -58,7 +59,7 @@ public partial class TeamDashViewModel : ViewModelBase
     {
         try
         {
-            HttpResponseMessage response = await client.GetAsync($"http://localhost:5213/api/v1/team/{id}");
+            HttpResponseMessage response = await client.GetAsync($"{BaseURL}/api/v1/team/{id}");
             
             Console.WriteLine(await response.Content.ReadAsStringAsync());
             
@@ -89,7 +90,7 @@ public partial class TeamDashViewModel : ViewModelBase
         try
         {
             Console.WriteLine("Getting People");
-            PersonList = await client.GetFromJsonAsync($"http://localhost:5213/api/v1/person/requests/{id}", AppJsonContext.Default.ObservableCollectionPerson);
+            PersonList = await client.GetFromJsonAsync($"{BaseURL}/api/v1/person/requests/{id}", AppJsonContext.Default.ObservableCollectionPerson);
         }
         catch (Exception e)
         {
@@ -101,11 +102,19 @@ public partial class TeamDashViewModel : ViewModelBase
     [RelayCommand]
     public async Task Accept(Person person)
     {
-        var response = await client.PutAsync($"http://localhost:5213/api/v1/person/request/{person.Id}?teamId={TeamId}", null);
-
-        if (response.IsSuccessStatusCode)
+        try
         {
-            await GetPeople(TeamId);
+            var response = await client.PutAsync($"{BaseURL}/api/v1/person/request/{person.Id}?teamId={TeamId}", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await GetPeople(TeamId);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 }
