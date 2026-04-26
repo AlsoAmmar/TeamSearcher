@@ -24,7 +24,7 @@ public partial class TeamDashViewModel : ViewModelBase
     private int TeamId { get; set; }
     private HttpClient client;
     private HubConnection connection;
-    private string BaseURL = "http://localhost:5213";
+    private string BaseURL = "https://teamsearcher-production.up.railway.app";
 
     public TeamDashViewModel()
     {

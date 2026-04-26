@@ -21,7 +21,7 @@ public partial class CreateViewModel : ViewModelBase
     [ObservableProperty] private bool _boysOnly;
     [ObservableProperty] private bool _girlsOnly;
     [ObservableProperty] private string _errorMessage;
-    private string BaseURL = "http://localhost:5213";
+    private string BaseURL = "https://teamsearcher-production.up.railway.app";
     private HttpClient client;
 
     public CreateViewModel()

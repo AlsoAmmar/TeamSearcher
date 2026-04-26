@@ -23,7 +23,7 @@ public partial class JoinViewModel : ViewModelBase
     private bool _isMobile;
 
     private HttpClient client;
-    private string BaseURL = "http://localhost:5213";
+    private string BaseURL = "https://teamsearcher-production.up.railway.app";
 
     public JoinViewModel()
     {

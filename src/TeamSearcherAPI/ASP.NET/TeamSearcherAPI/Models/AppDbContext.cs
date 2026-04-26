@@ -22,5 +22,13 @@ public class AppDbContext : DbContext
 
             entity.HasOne(tp => tp.Team).WithMany(s => s.TeamPersons).HasForeignKey(tp => tp.TeamId);
         });
+
+        modelBuilder.Entity<Person>()
+            .Property(p => p.Id)
+            .HasIdentityOptions(startValue: 1000);
+
+        modelBuilder.Entity<Team>()
+            .Property(t => t.Id)
+            .HasIdentityOptions(startValue: 2000);
     }
 }

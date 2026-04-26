@@ -15,7 +15,7 @@ var configurationString = builder.Configuration["ConnectionString"];
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlite(configurationString);
+    options.UseNpgsql(configurationString);
 });
 
 builder.Services.AddOpenApi();
@@ -35,6 +35,12 @@ builder.Services.AddSignalR();
 builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 app.UseCors("policy");
 
