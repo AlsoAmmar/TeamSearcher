@@ -127,7 +127,8 @@ teamGroup.MapGet("/", async (int personId, AppDbContext db) =>
         .Where(t => !db.TeamPersons.Any(tp => 
             tp.TeamId == t.Id && 
             tp.PersonId == personId && 
-            tp.Status == Status.Accepted))
+            tp.Status == Status.Accepted &&
+            tp.Team.CurrentCount < tp.Team.MaxCount))
         .ToListAsync();
 });
 
