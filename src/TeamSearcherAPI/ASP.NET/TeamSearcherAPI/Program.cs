@@ -123,13 +123,14 @@ teamGroup.MapPost("/request/{id}", async (int id, int personId, AppDbContext db,
 
 teamGroup.MapGet("/", async (int personId, AppDbContext db) =>
 {
-    return await db.Team
+    var teams = await db.Team
         .Where(t => !db.TeamPersons.Any(tp => 
             tp.TeamId == t.Id && 
             tp.PersonId == personId && 
-            tp.Status == Status.Accepted &&
-            tp.Team.CurrentCount < tp.Team.MaxCount))
+            tp.Status == Status.Accepted))
         .ToListAsync();
+
+    return teams.Where(t => t.CurrentCount < t.MaxCount);
 });
 
 teamGroup.MapGet("/{id}", async (int Id, AppDbContext db) =>
