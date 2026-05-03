@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using TeamSearcher.Models;
@@ -21,5 +22,10 @@ public partial class TeamListView : UserControl
         var team = button!.DataContext as Team;
         
         await ((TeamListViewModel)DataContext!).RequestJoinCommand.ExecuteAsync(team);
+    }
+
+    private void BorderPress(object? sender, PointerPressedEventArgs e)
+    {
+        ((TeamListViewModel)DataContext!).HideCommand.Execute(null);
     }
 }

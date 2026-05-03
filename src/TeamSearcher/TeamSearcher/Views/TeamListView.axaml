@@ -12,9 +12,102 @@
     </Design.DataContext>
     
     <Grid Background="Black" RowDefinitions="Auto, Auto, *">
+        <Border Grid.Row="0" Grid.RowSpan="3" Opacity="0.7"
+                Background="Black" ZIndex="100"
+                IsVisible="{Binding IsVisible}"
+                PointerPressed="BorderPress"/>
+        <Border Grid.Row="0" Grid.RowSpan="3"
+                ZIndex="101" Background="White"
+                MinHeight="100" MinWidth="300" CornerRadius="10"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                IsVisible="{Binding IsEditVisibile}">
+            <StackPanel Orientation="Vertical" Margin="20" Spacing="20">
+                <Panel>
+                    <TextBox FontFamily="{StaticResource BalooBold}"
+                             FontWeight="Bold"
+                             Foreground="Black" IsReadOnly="False"
+                             Text="{Binding NameEdit}"
+                             IsVisible="{Binding !IsMobile}"
+                             UseFloatingPlaceholder="True"
+                             PlaceholderText="الاسم"/>
+
+                    <Button Command="{Binding FocusNameCommand}"
+                            IsVisible="{Binding IsMobile}"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="1"
+                            Padding="0,0">
+                        <TextBox Text="{Binding NameEdit}"
+                                 HorizontalAlignment="Stretch"
+                                 FontFamily="{StaticResource BalooBold}"
+                                 Foreground="Black"
+                                 Focusable="False" IsReadOnly="True"
+                                 IsHitTestVisible="False"
+                                 UseFloatingPlaceholder="True"
+                                 PlaceholderText="الاسم"/>
+                    </Button>
+                </Panel>
+                <Panel>
+                    <TextBox FontFamily="{StaticResource BalooBold}"
+                             FontWeight="Bold"
+                             Foreground="Black" IsReadOnly="False"
+                             Text="{Binding NumberEdit}"
+                             IsVisible="{Binding !IsMobile}"
+                             UseFloatingPlaceholder="True"
+                             PlaceholderText="رقم الواتساب"/>
+
+                    <Button Command="{Binding FocusNumberCommand}"
+                            IsVisible="{Binding IsMobile}"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="1"
+                            Padding="0,0">
+                        <TextBox Text="{Binding NumberEdit}"
+                                 HorizontalAlignment="Stretch"
+                                 FontFamily="{StaticResource BalooBold}"
+                                 FontWeight="Bold"
+                                 Foreground="Black"
+                                 Focusable="False" IsReadOnly="True"
+                                 IsHitTestVisible="False"
+                                 UseFloatingPlaceholder="True"
+                                 PlaceholderText="رقم الواتساب"/>
+                    </Button>
+                </Panel>
+                <Button Height="30"
+                        Background="Black" Foreground="White"
+                        CornerRadius="20"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Content="حفظ"
+                        FontFamily="{StaticResource BalooBold}"
+                        FontWeight="Bold"
+                        FlowDirection="RightToLeft"/>
+            </StackPanel>
+        </Border>
+        <Button Grid.Row="0" Content="&#xE3B4;"
+                FontFamily="{StaticResource PhosphorBold}"
+                Foreground="White"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="20"
+                FontSize="20"
+                Command="{Binding EditCommand}">
+            <Button.Styles>
+                <Style Selector="Button /template/ ContentPresenter">
+                    <Style Selector="^:pointerover">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                    </Style>
+                </Style>
+            </Button.Styles>
+        </Button>
         <StackPanel Grid.Row="0" Margin="20" Spacing="10">
             <TextBlock Text="{Binding PersonName}" Foreground="White"
-                       FontFamily="{StaticResource Segoe}"
+                       FontFamily="{StaticResource MixTest}"
                        FontSize="25" TextWrapping="Wrap"/>
             <Label FontSize="20" Foreground="White"
                    FontFamily="{StaticResource PhosphorBold, ResourceKey=Segoe}">
@@ -47,7 +140,7 @@
                                 Margin="20" CornerRadius="20">
                             <StackPanel Margin="15" Spacing="10">
                                 <TextBlock Text="{Binding Name}"
-                                           FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
+                                           FontFamily="{StaticResource MixTest}"
                                            FontWeight="Bold"/>
                                 
                                 <Grid ColumnDefinitions="*, *">

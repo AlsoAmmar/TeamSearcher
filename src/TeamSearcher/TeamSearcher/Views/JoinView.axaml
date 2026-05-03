@@ -28,7 +28,7 @@
                                    FontFamily="{StaticResource BalooBold}"
                                    FontWeight="Bold"/>
                             <Panel>
-                                <TextBox FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
+                                <TextBox FontFamily="{StaticResource MixTest}"
                                          Foreground="Black" IsReadOnly="False"
                                          Text="{Binding Name}"
                                          IsVisible="{Binding !IsMobile}"/>
@@ -56,7 +56,7 @@
                                    FontFamily="{StaticResource BalooBold}"
                                    FontWeight="Bold"/>
                             <Panel>
-                                <TextBox FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
+                                <TextBox FontFamily="{StaticResource BalooBold}"
                                          Foreground="Black" IsReadOnly="False"
                                          Text="{Binding Number}"
                                          IsVisible="{Binding !IsMobile}"/>

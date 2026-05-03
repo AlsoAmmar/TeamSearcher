@@ -95,6 +95,16 @@ personGroup.MapPut("/request/{id}", async (int id, int teamId, AppDbContext db, 
     return Results.Ok();
 });
 
+personGroup.MapPut("/edit/{id}", async (int id, Person newPerson, AppDbContext db) =>
+{
+    Person person = await db.Person.FindAsync(id);
+
+    person!.Name = newPerson.Name;
+    person.Number = newPerson.Number;
+
+    await db.SaveChangesAsync();
+});
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 teamGroup.MapPost("/", async (Team team, AppDbContext db, IHubContext<PersonHub> hubContext) =>

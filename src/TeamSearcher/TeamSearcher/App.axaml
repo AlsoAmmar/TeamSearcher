@@ -42,5 +42,9 @@
         <FontFamily x:Key="BalooBold">
             avares://TeamSearcher/Assets/Fonts#Baloo Bhaijaan 2
         </FontFamily>
+        <FontFamily x:Key="MixTest">
+            avares://TeamSearcher/Assets/Fonts#Segoe UI Black,
+            avares://TeamSearcher/Assets/Fonts#Baloo Bhaijaan 2
+        </FontFamily>
     </Application.Resources>
 </Application>

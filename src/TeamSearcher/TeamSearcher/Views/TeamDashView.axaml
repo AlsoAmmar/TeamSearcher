@@ -14,7 +14,7 @@
     <Grid Background="Black" RowDefinitions="Auto, Auto, *">
         <StackPanel Grid.Row="0" Margin="20" Spacing="10">
             <TextBlock Text="{Binding ProjectName}"
-                       FontFamily="{StaticResource BalooBold, ResourceKey=Segoe}"
+                       FontFamily="{StaticResource MixTest}"
                        FontWeight="Bold" Foreground="White"
                        FontSize="25" TextWrapping="Wrap"/>
             <Label FontSize="20" Foreground="White"
@@ -48,7 +48,7 @@
                                 Margin="20" CornerRadius="20">
                             <Grid Margin="15">
                                 <TextBlock Text="{Binding Name}"
-                                           FontFamily="{StaticResource Segoe, ResourceKey=BalooBold}"
+                                           FontFamily="{StaticResource MixTest}"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"/>
                                 
