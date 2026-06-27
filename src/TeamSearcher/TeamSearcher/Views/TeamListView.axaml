@@ -20,7 +20,7 @@
                 ZIndex="101" Background="White"
                 MinHeight="100" MinWidth="300" CornerRadius="10"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                IsVisible="{Binding IsEditVisibile}">
+                IsVisible="{Binding IsEditVisible}">
             <StackPanel Orientation="Vertical" Margin="20" Spacing="20">
                 <Panel>
                     <TextBox FontFamily="{StaticResource BalooBold}"
@@ -84,7 +84,8 @@
                         Content="حفظ"
                         FontFamily="{StaticResource BalooBold}"
                         FontWeight="Bold"
-                        FlowDirection="RightToLeft"/>
+                        FlowDirection="RightToLeft"
+                        Command="{Binding SaveCommand}"/>
             </StackPanel>
         </Border>
         <Button Grid.Row="0" Content="&#xE3B4;"

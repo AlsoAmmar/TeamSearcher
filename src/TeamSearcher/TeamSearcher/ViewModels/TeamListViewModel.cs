@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -25,19 +26,24 @@ public partial class TeamListViewModel : ViewModelBase
     [ObservableProperty] [Required(ErrorMessage = "مطلوب رقم الواتساب لكي يتواصل معك مالك التيم")] [PhoneNumber(ErrorMessage = "رقم الهاتف غير صحيح")] [NotifyDataErrorInfo]
     private string _numberEdit;
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(IsVisible))]
-    private bool _isEditVisibile;
+    private bool _isEditVisible;
     [ObservableProperty]
     private bool _isMobile;
     private int PersonId { get; set; }
     private HttpClient client;
     private HubConnection connection;
     private string BaseURL = "https://teamsearcher-production.up.railway.app";
-    private bool IsVisible => IsEditVisibile;
+    public bool IsVisible
+    {
+        get => IsEditVisible;
+        set => IsEditVisible = value;
+    }
 
     public TeamListViewModel(int id)
     {
         client = new HttpClient();
         TeamList = new ObservableCollection<Team>();
+        IsEditVisible = false;
         
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Create("BROWSER")))
         {
@@ -128,7 +134,7 @@ public partial class TeamListViewModel : ViewModelBase
 
     private async Task GetPersonData(int id)
     {
-        var response = await client.GetAsync($"{BaseURL}/api/v1/person/{PersonId}");
+        var response = await client.GetAsync($"{BaseURL}/api/v1/person/{id}");
 
         Console.WriteLine(await response.Content.ReadAsStringAsync());
 
@@ -167,7 +173,8 @@ public partial class TeamListViewModel : ViewModelBase
     {
         NameEdit = "";
         NumberEdit = "";
-        IsEditVisibile = true;
+        ClearErrors();
+        IsEditVisible = true;
     }
 
     [RelayCommand]
@@ -204,6 +211,6 @@ public partial class TeamListViewModel : ViewModelBase
     [RelayCommand]
     private void Hide()
     {
-        IsEditVisibile = false;
+        IsEditVisible = false;
     }
 }
