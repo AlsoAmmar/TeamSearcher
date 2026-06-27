@@ -13,4 +13,19 @@ public static class PersonMapping
             Number = person.Number
         };
     }
+
+    public static Person ToEntity(this CreatePersonDto dto)
+    {
+        return new Person
+        {
+            Name = dto.Name,
+            Number = dto.Number
+        };
+    }
+
+    public static void UpdateEntity(this Person person, UpdatePersonDto updatedPerson)
+    {
+        person.Name = updatedPerson.Name;
+        person.Number = updatedPerson.Number;
+    }
 }
