@@ -17,6 +17,8 @@
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/Contracts/Persistence/IGenericRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/Contracts/Persistence/IPersonRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/Contracts/Persistence/ITeamRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/Contracts/Services/IPersonService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/Contracts/Services/ITeamService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/DTOs/Person/CreatePersonDto.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/DTOs/Person/PersonDto.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/DTOs/Person/UpdatePersonDto.cs" root0="FORCE_HIGHLIGHTING" />
@@ -24,10 +26,9 @@
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/DTOs/Team/UpdateTeamDto.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/Mappings/PersonMapping.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/Mappings/TeamMapping.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/Services/IPersonService.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TeamSearcher.Application/Services/ITeamService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Domain/Enums/Status.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TeamSearcher.Domain/Enums/Tag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TeamSearcher.Persistence/Class1.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -62,7 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1782559516536</updated>
       <workItem from="1782559524585" duration="9207000" />
-      <workItem from="1782630817631" duration="2565000" />
+      <workItem from="1782630817631" duration="5882000" />
     </task>
     <servers />
   </component>

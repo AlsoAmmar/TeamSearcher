@@ -28,6 +28,13 @@ public static class TeamMapping
         };
     }
 
+    public static IEnumerable<TeamDto> ToDtoList(this IEnumerable<Team> teams)
+    {
+        if (teams == null) return Enumerable.Empty<TeamDto>();
+
+        return teams.Select(t => t.ToDto()).ToList();
+    }
+
     public static void UpdateEntity(this Team team, UpdateTeamDto updatedTeam)
     {
         team.Name = updatedTeam.Name;

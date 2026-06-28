@@ -22,6 +22,13 @@ public static class PersonMapping
             Number = dto.Number
         };
     }
+    
+    public static IEnumerable<PersonDto> ToDtoList(this IEnumerable<Person> persons)
+    {
+        if (persons == null) return Enumerable.Empty<PersonDto>();
+
+        return persons.Select(t => t.ToDto()).ToList();
+    }
 
     public static void UpdateEntity(this Person person, UpdatePersonDto updatedPerson)
     {
