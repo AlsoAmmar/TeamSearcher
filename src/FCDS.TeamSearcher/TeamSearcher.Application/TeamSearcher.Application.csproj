@@ -10,4 +10,8 @@
       <ProjectReference Include="..\TeamSearcher.Domain\TeamSearcher.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services\" />
+    </ItemGroup>
+
 </Project>
