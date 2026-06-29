@@ -1,52 +1,37 @@
+using Microsoft.EntityFrameworkCore;
 using TeamSearcher.Application.Contracts.Persistence;
 using TeamSearcher.Domain.Entities;
+using TeamSearcher.Domain.Enums;
 
 namespace TeamSearcher.Persistence.Repositories;
 
-public class PersonRepository : IPersonRepository
+public class PersonRepository : GenericRepository<Person>, IPersonRepository
 {
-    public Task<Person> GetAsync(int id, CancellationToken cancellationToken)
+    private readonly AppDbContext _db;
+    
+    public PersonRepository(AppDbContext db) : base(db)
     {
-        throw new NotImplementedException();
+        _db = db;
     }
 
-    public Task<IReadOnlyList<Person>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<Person>> GetPersonRequestsAsync(int teamId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var persons = await _db.TeamPersons
+            .Where(t => t.TeamId == teamId && t.Status == Status.NotAccepted)
+            .Select(t => t.Person)
+            .ToListAsync(cancellationToken);
+
+        return persons;
     }
 
-    public Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)
+    public async Task<bool> RequestExistsAsync(int personId, int teamId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _db.TeamPersons.AnyAsync(t => t.PersonId == personId && t.TeamId == teamId, cancellationToken);
     }
 
-    public Task<Person> AddAsync(Person entity, CancellationToken cancellationToken)
+    public async Task RequestJoinAsync(int personId, int teamId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateAsync(Person entity, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteAsync(Person entity, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<Person>> GetPersonRequestsAsync(int teamId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> RequestExistsAsync(int personId, int teamId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task RequestJoinAsync(int personId, int teamId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
+        _db.TeamPersons.Add(new TeamPerson{ TeamId = teamId, PersonId = personId, Status = Status.NotAccepted });
+        await _db.SaveChangesAsync();
     }
 }

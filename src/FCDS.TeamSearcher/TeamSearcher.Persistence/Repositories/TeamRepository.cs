@@ -1,52 +1,44 @@
+using Microsoft.EntityFrameworkCore;
 using TeamSearcher.Application.Contracts.Persistence;
 using TeamSearcher.Domain.Entities;
+using TeamSearcher.Domain.Enums;
 
 namespace TeamSearcher.Persistence.Repositories;
 
-public class TeamRepository : ITeamRepository
+public class TeamRepository : GenericRepository<Team>, ITeamRepository
 {
-    public Task<Team> GetAsync(int id, CancellationToken cancellationToken)
+    private readonly AppDbContext _db;
+    
+    public TeamRepository(AppDbContext db) : base(db)
     {
-        throw new NotImplementedException();
+        _db = db;
     }
 
-    public Task<IReadOnlyList<Team>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<Team>> GetAvailableTeamsAsync(int personId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var teams = await _db.Team
+            .Where(t => !_db.TeamPersons.Any(tp => 
+                tp.TeamId == t.Id && 
+                tp.PersonId == personId && 
+                tp.Status == Status.Accepted))
+            .ToListAsync();
+
+        return teams.Where(t => t.CurrentCount < t.MaxCount);
     }
 
-    public Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
+    public async Task<bool> RequestAcceptedExistsAsync(int personId, int teamId, CancellationToken cancellationToken)
+    { 
+        return await _db.TeamPersons.AnyAsync(tp => tp.TeamId == teamId && tp.PersonId == personId && tp.Status == Status.Accepted);
     }
 
-    public Task<Team> AddAsync(Team entity, CancellationToken cancellationToken)
+    public async Task AcceptRequestAsync(int personId, int teamId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateAsync(Team entity, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteAsync(Team entity, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<Team>> GetAvailableTeamsAsync(int personId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> RequestAcceptedExistsAsync(int personId, int teamId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task AcceptRequestAsync(int personId, int teamId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
+        var teamPerson = await _db.TeamPersons.FindAsync(personId, teamId);
+        var team = await _db.Team.FindAsync(teamId);
+        
+        teamPerson!.Status = Status.Accepted;
+        team!.CurrentCount++;
+        
+        await _db.SaveChangesAsync(cancellationToken);
     }
 }
