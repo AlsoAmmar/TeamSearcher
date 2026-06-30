@@ -56,3 +56,6 @@ src/TeamSearcherAPI/ASP.NET/ASP.slnx
 src/TeamSearcherAPI/ASP.NET/TeamSearcherAPI/appsettings.Development.json
 src/TeamSearcherAPI/ASP.NET/TeamSearcherAPI/appsettings.json
 /src/TeamSearcherAPI/ASP.NET/TeamSearcherAPI/Properties
+src/FCDS.TeamSearcher/TeamSearcher.API/appsettings.json
+src/FCDS.TeamSearcher/TeamSearcher.API/appsettings.Development.json
+src/FCDS.TeamSearcher/TeamSearcher.API/Properties/launchSettings.json
