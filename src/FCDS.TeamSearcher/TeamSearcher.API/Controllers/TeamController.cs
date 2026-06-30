@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TeamSearcher.Application.Contracts.Services;
 
 namespace TeamSearcher.API.Controllers;
 
@@ -6,5 +7,12 @@ namespace TeamSearcher.API.Controllers;
 [Route("api/v1/[controller]")]
 public class TeamController : ControllerBase
 {
+    private readonly ITeamService _teamService;
+    
+    public TeamController(ITeamService teamService)
+    {
+        _teamService = teamService;
+    }
+    
     
 }
