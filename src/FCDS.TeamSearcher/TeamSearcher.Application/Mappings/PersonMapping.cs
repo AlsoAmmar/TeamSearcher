@@ -9,6 +9,7 @@ public static class PersonMapping
     {
         return new PersonDto
         {
+            Id =  person.Id,
             Name = person.Name,
             Number = person.Number
         };
